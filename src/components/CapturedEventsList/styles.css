@@ -1,0 +1,84 @@
+.toggle-button {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  border-radius: 9999px;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+}
+
+.toggle-button:hover {
+  background-color: #242424;
+}
+
+.debug-window {
+  position: fixed;
+  width: 800px;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  overflow: hidden;
+  background-color: #242424;
+}
+
+.debug-header {
+  padding: 0.5rem;
+  cursor: grab;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-title {
+  font-weight: bold;
+}
+
+.header-actions {
+  display: flex;
+}
+
+.icon-button {
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.icon-button:hover {
+  background-color: #111;
+}
+
+.debug-content {
+  padding: 1rem;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.control-panel {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+  text-align: left;
+  font-weight: 600;
+  border-bottom: 2px solid #e5e7eb;
+}
