@@ -1,0 +1,19 @@
+<svg width="24" height="24" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Círculo externo (representando o evento) -->
+    <circle cx="100" cy="100" r="90" stroke="#61DAFB" stroke-width="10" stroke-dasharray="20 10"/>
+    
+    <!-- Átomo do React (versão simplificada) -->
+    <g transform="translate(100 100)">
+        <!-- Órbitas -->
+        <ellipse rx="45" ry="15" stroke="#61DAFB" stroke-width="10" transform="rotate(0)"/>
+        <ellipse rx="45" ry="15" stroke="#61DAFB" stroke-width="10" transform="rotate(60)"/>
+        <ellipse rx="45" ry="15" stroke="#61DAFB" stroke-width="10" transform="rotate(120)"/>
+        
+        <!-- Núcleo -->
+        <circle r="15" fill="#61DAFB"/>
+    </g>
+    
+    <!-- Alvo central (representando a captura) -->
+    <circle cx="100" cy="100" r="30" stroke="#FF4154" stroke-width="10" fill="none"/>
+    <circle cx="100" cy="100" r="10" fill="#FF4154"/>
+</svg>
