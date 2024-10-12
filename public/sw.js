@@ -1,17 +1,17 @@
 let events = [];
 
-self.addEventListener("install", (event) => {
-  console.log("Service Worker instalado");
+self.addEventListener('install', (event) => {
+  console.log('Service Worker instalado');
   event.waitUntil(self.skipWaiting());
 });
 
-self.addEventListener("activate", (event) => {
-  console.log("Service Worker ativado");
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker ativado');
   event.waitUntil(self.clients.claim());
 });
 
-self.addEventListener("message", (event) => {
-  if (event.data.type === "LOG_EVENT") {
+self.addEventListener('message', (event) => {
+  if (event.data.type === 'LOG_EVENT') {
     const newEvent = {
       eventName: event.data.eventName,
       eventData: event.data.eventData,
@@ -25,12 +25,12 @@ self.addEventListener("message", (event) => {
     }
   }
 
-  if (event.data.type === "GET_EVENTS") {
-    event.source.postMessage({ type: "EVENTS_LIST", events });
+  if (event.data.type === 'GET_EVENTS') {
+    event.source.postMessage({ type: 'EVENTS_LIST', events });
   }
 
-  if (event.data.type === "CLEAR_EVENTS") {
+  if (event.data.type === 'CLEAR_EVENTS') {
     events = [];
-    event.source.postMessage({ type: "EVENTS_CLEARED" });
+    event.source.postMessage({ type: 'EVENTS_CLEARED' });
   }
 });

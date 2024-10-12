@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback, ReactNode, FC } from "react";
+import { createContext, useContext, useCallback, ReactNode, FC } from 'react';
 
 /**
  * @typedef {Object} EventContextType
@@ -19,7 +19,7 @@ export type EventContextType<E = string, D = Record<string, any>> = {
   addGlobalListeners: (
     eventTypes: string[],
     dataAttributes: string[],
-    selector?: string
+    selector?: string,
   ) => () => void;
 };
 
@@ -28,7 +28,7 @@ export type EventProviderProps = {
 };
 
 const EventContext = createContext<EventContextType<any, any> | undefined>(
-  undefined
+  undefined,
 );
 
 /**
@@ -68,13 +68,13 @@ export const EventProvider: FC<EventProviderProps> = ({
     (eventName: string, eventData: Record<string, any>) => {
       if (navigator.serviceWorker && navigator.serviceWorker.controller) {
         navigator.serviceWorker.controller.postMessage({
-          type: "LOG_EVENT",
+          type: 'LOG_EVENT',
           eventName,
           eventData,
         });
       }
     },
-    []
+    [],
   );
 
   /**
@@ -88,11 +88,11 @@ export const EventProvider: FC<EventProviderProps> = ({
   const handleUserAction = useCallback(
     <E extends string, D extends Record<string, any>>(
       eventName: E,
-      eventData: D
+      eventData: D,
     ) => {
       sendEvent(eventName, eventData);
     },
-    [sendEvent]
+    [sendEvent],
   );
 
   /**
@@ -112,7 +112,7 @@ export const EventProvider: FC<EventProviderProps> = ({
     (eventName: string, eventData: Record<string, any>, error = false) => {
       sendEvent(eventName, { ...eventData, error });
     },
-    [sendEvent]
+    [sendEvent],
   );
 
   /**
@@ -136,7 +136,7 @@ export const EventProvider: FC<EventProviderProps> = ({
     (
       eventTypes: string[],
       dataAttributes: string[],
-      selector = "[data-event]"
+      selector = '[data-event]',
     ) => {
       const globalListener = (event: Event) => {
         const target = (event.target as HTMLElement).closest(selector);
@@ -149,7 +149,7 @@ export const EventProvider: FC<EventProviderProps> = ({
             }
           });
 
-          const eventName = target.getAttribute("data-event") || "";
+          const eventName = target.getAttribute('data-event') || '';
 
           handleUserAction(eventName, eventData);
         }
@@ -165,7 +165,7 @@ export const EventProvider: FC<EventProviderProps> = ({
         });
       };
     },
-    [handleUserAction]
+    [handleUserAction],
   );
 
   return (
@@ -192,11 +192,11 @@ export const EventProvider: FC<EventProviderProps> = ({
  */
 export const useCaptureEvent = <
   E = string,
-  D = Record<string, any>
+  D = Record<string, any>,
 >(): EventContextType<E, D> => {
   const context = useContext(EventContext);
   if (!context) {
-    throw new Error("useCaptureEvent must be used within an EventProvider");
+    throw new Error('useCaptureEvent must be used within an EventProvider');
   }
   return context as EventContextType<E, D>;
 };

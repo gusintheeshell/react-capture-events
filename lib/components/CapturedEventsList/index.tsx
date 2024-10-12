@@ -5,7 +5,7 @@ import React, {
   lazy,
   Suspense,
   useCallback,
-} from "react";
+} from 'react';
 import {
   X,
   ChevronRight,
@@ -14,11 +14,11 @@ import {
   Table as TableIcon,
   RefreshCcw,
   Trash,
-} from "lucide-react";
-import "./styles.css";
-import Icon from "../Icon";
+} from 'lucide-react';
+import './styles.css';
+import Icon from '../Icon';
 
-const ReactJson = lazy(() => import("react-json-view"));
+const ReactJson = lazy(() => import('react-json-view'));
 
 interface EventData {
   eventName: string;
@@ -31,8 +31,8 @@ export const CapturedEventsList = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const [viewType, setViewType] = useState<"individual" | "table">(
-    "individual"
+  const [viewType, setViewType] = useState<'individual' | 'table'>(
+    'individual',
   );
   const [events, setEvents] = useState<EventData[]>([]);
   const dragRef = useRef<HTMLDivElement>(null);
@@ -68,10 +68,10 @@ export const CapturedEventsList = () => {
 
   const fetchEventsFromSW = async () => {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: "GET_EVENTS" });
+      navigator.serviceWorker.controller.postMessage({ type: 'GET_EVENTS' });
 
-      navigator.serviceWorker.addEventListener("message", (event) => {
-        if (event.data && event.data.type === "EVENTS_LIST") {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data && event.data.type === 'EVENTS_LIST') {
           setEvents(event.data.events);
         }
       });
@@ -80,17 +80,17 @@ export const CapturedEventsList = () => {
 
   const clearAllEvents = useCallback(async () => {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: "CLEAR_EVENTS" });
+      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_EVENTS' });
       setEvents([]);
     }
   }, [events, setEvents]);
 
   useEffect(() => {
-    document.addEventListener("mousemove", handleMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
     };
   }, [isDragging]);
 
@@ -104,13 +104,13 @@ export const CapturedEventsList = () => {
 
   const prevItem = () => {
     setSelectedIndex(
-      (prevIndex) => (prevIndex - 1 + events.length) % events.length
+      (prevIndex) => (prevIndex - 1 + events.length) % events.length,
     );
   };
 
   const toggleViewType = () => {
     setViewType((prevType) =>
-      prevType === "individual" ? "table" : "individual"
+      prevType === 'individual' ? 'table' : 'individual',
     );
   };
 
@@ -137,12 +137,12 @@ export const CapturedEventsList = () => {
         </Suspense>
       </>
     ),
-    [events, selectedIndex]
+    [events, selectedIndex],
   );
 
   const renderTableView = () => {
     const allKeys = Array.from(
-      new Set(events.flatMap((obj) => Object.keys(obj)))
+      new Set(events.flatMap((obj) => Object.keys(obj))),
     );
     return (
       <table className="table">
@@ -158,9 +158,9 @@ export const CapturedEventsList = () => {
             <tr key={index}>
               {allKeys.map((key) => (
                 <td key={`${index}-${key}`}>
-                  {typeof item[key as keyof EventData] === "object"
+                  {typeof item[key as keyof EventData] === 'object'
                     ? JSON.stringify(item[key as keyof EventData])
-                    : String(item[key as keyof EventData] || "")}
+                    : String(item[key as keyof EventData] || '')}
                 </td>
               ))}
             </tr>
@@ -182,7 +182,7 @@ export const CapturedEventsList = () => {
           style={{
             bottom: `calc(20px + ${position.y}px)`,
             right: `calc(16px - ${position.x}px)`,
-            cursor: isDragging ? "grabbing" : "auto",
+            cursor: isDragging ? 'grabbing' : 'auto',
           }}
         >
           <div className="debug-header" ref={dragRef} onMouseDown={onMouseDown}>
@@ -195,7 +195,7 @@ export const CapturedEventsList = () => {
                 <RefreshCcw size={16} />
               </button>
               <button className="icon-button" onClick={toggleViewType}>
-                {viewType === "individual" ? (
+                {viewType === 'individual' ? (
                   <TableIcon size={16} />
                 ) : (
                   <List size={16} />
@@ -207,7 +207,7 @@ export const CapturedEventsList = () => {
             </div>
           </div>
           <div className="debug-content">
-            {viewType === "individual"
+            {viewType === 'individual'
               ? renderIndividualView()
               : renderTableView()}
           </div>
