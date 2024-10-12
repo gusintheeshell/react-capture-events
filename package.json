@@ -18,12 +18,14 @@
   },
   "scripts": {
     "dev": "vite",
+    "test": "vitest",
     "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "prepublishOnly": "vite build",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:browser": "vitest --workspace=vitest.workspace.ts"
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": [
@@ -38,18 +40,27 @@
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
     "@commitlint/config-conventional": "^19.5.0",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@eslint/js": "^9.12.0",
+    "@playwright/experimental-ct-react": "^1.48.0",
+    "@playwright/test": "^1.48.0",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@types/jest": "^29.5.13",
     "@types/node": "^22.7.5",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "@vitest/browser": "^2.1.2",
     "eslint": "^9.12.0",
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.12",
     "glob": "^11.0.0",
     "globals": "^15.11.0",
     "husky": "^9.1.6",
+    "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
+    "playwright": "^1.48.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -57,7 +68,9 @@
     "typescript-eslint": "^8.8.1",
     "vite": "^5.4.8",
     "vite-plugin-dts": "^4.2.4",
-    "vite-plugin-lib-inject-css": "^2.1.1"
+    "vite-plugin-lib-inject-css": "^2.1.1",
+    "vitest": "^2.1.2",
+    "vitest-browser-react": "^0.0.1"
   },
   "peerDependencies": {
     "react": "^18.3.1",
