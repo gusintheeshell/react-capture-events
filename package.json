@@ -22,7 +22,6 @@
     "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepublishOnly": "vite build",
     "format": "prettier --write .",
     "prepare": "husky",
     "test:browser": "vitest --workspace=vitest.workspace.ts"
