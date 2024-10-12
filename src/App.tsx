@@ -2,7 +2,8 @@ import { useEffect } from "react";
 
 import "./App.css";
 import logo from "./assets/react-capture-events.svg";
-import { useCaptureEvent } from "./context/CaptureEventProvider";
+import { useCaptureEvent } from "../lib/context/CaptureEventProvider";
+import { CapturedEventsList } from "../lib/main";
 
 function App() {
   const { addGlobalListeners } = useCaptureEvent();
@@ -16,7 +17,7 @@ function App() {
     return () => {
       removeListeners();
     };
-  }, []);
+  }, [removeEventListener]);
 
   return (
     <>
@@ -26,8 +27,8 @@ function App() {
         <div className="icon-container">
           <img
             src={logo}
-            className="react-capture-events-icon"
-            alt="react-capture-events-icon react-capture-events-icon:hover target-outer target-inner"
+            className="react-capture-events-icon react-capture-events-icon:hover target-outer target-inner"
+            alt="react-capture-events-icon"
           />
         </div>
 
@@ -167,6 +168,7 @@ function App() {
           </div>
         </div>
       </div>
+      <CapturedEventsList />
     </>
   );
 }
