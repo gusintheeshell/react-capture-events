@@ -20,7 +20,10 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: npm install
+        run: |
+          npm install
+          npm install @rollup/plugin-inject@latest @jridgewell/sourcemap-codec@latest
+          npm update husky
 
       - name: Build the package
         run: npm run build
@@ -30,7 +33,8 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Generate changelog
+      - id: changelog
+        name: Generate changelog
         uses: mikepenz/release-changelog-builder-action@v2
         with:
           configuration: .github/release-changelog-config.json
