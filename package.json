@@ -23,7 +23,6 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write .",
-    "prepare": "husky",
     "test:browser": "vitest --workspace=vitest.workspace.ts"
   },
   "lint-staged": {
