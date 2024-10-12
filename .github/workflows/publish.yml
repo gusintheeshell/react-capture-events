@@ -22,7 +22,7 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Update husky
-        run: npm update husky
+        run: npm update husky --legacy-peer-deps
 
       - name: Build the package
         run: npm run build
