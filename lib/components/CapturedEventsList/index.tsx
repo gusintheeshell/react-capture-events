@@ -5,7 +5,7 @@ import React, {
   lazy,
   Suspense,
   useCallback,
-} from 'react';
+} from 'react'
 import {
   X,
   ChevronRight,
@@ -14,105 +14,103 @@ import {
   Table as TableIcon,
   RefreshCcw,
   Trash,
-} from 'lucide-react';
-import './styles.css';
-import Icon from '../Icon';
+} from 'lucide-react'
+import './styles.css'
+import Icon from '../Icon'
 
-const ReactJson = lazy(() => import('react-json-view'));
+const ReactJson = lazy(() => import('react-json-view'))
 
 interface EventData {
-  eventName: string;
-  eventData: Record<string, any>;
-  timestamp: string;
+  eventName: string
+  eventData: Record<string, any>
+  timestamp: string
 }
 
 export const CapturedEventsList = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isDragging, setIsDragging] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [viewType, setViewType] = useState<'individual' | 'table'>(
-    'individual',
-  );
-  const [events, setEvents] = useState<EventData[]>([]);
-  const dragRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false)
+  const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [viewType, setViewType] = useState<'individual' | 'table'>('individual')
+  const [events, setEvents] = useState<EventData[]>([])
+  const dragRef = useRef<HTMLDivElement>(null)
 
-  const resetPosition = () => setPosition({ x: 0, y: 0 });
+  const resetPosition = () => setPosition({ x: 0, y: 0 })
   const toggleWindow = () => {
-    setIsOpen((prev) => !prev);
-    resetPosition();
-  };
+    setIsOpen((prev) => !prev)
+    resetPosition()
+  }
 
   const onMouseDown = (e: React.MouseEvent) => {
     if (e.target === dragRef.current) {
-      setIsDragging(true);
+      setIsDragging(true)
     }
-  };
+  }
 
   const handleMouseMove = (e: MouseEvent) => {
     if (isDragging) {
       setPosition((prevPosition) => ({
         x: prevPosition.x + e.movementX,
         y: prevPosition.y - e.movementY,
-      }));
+      }))
     }
-  };
+  }
 
   const onMouseUp = () => {
-    setIsDragging(false);
-  };
+    setIsDragging(false)
+  }
 
   const refresh = async () => {
-    await fetchEventsFromSW();
-  };
+    await fetchEventsFromSW()
+  }
 
   const fetchEventsFromSW = async () => {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: 'GET_EVENTS' });
+      navigator.serviceWorker.controller.postMessage({ type: 'GET_EVENTS' })
 
       navigator.serviceWorker.addEventListener('message', (event) => {
         if (event.data && event.data.type === 'EVENTS_LIST') {
-          setEvents(event.data.events);
+          setEvents(event.data.events)
         }
-      });
+      })
     }
-  };
+  }
 
   const clearAllEvents = useCallback(async () => {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_EVENTS' });
-      setEvents([]);
+      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_EVENTS' })
+      setEvents([])
     }
-  }, [events, setEvents]);
+  }, [events, setEvents])
 
   useEffect(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', onMouseUp)
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-  }, [isDragging]);
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [isDragging])
 
   useEffect(() => {
-    fetchEventsFromSW();
-  }, [events]);
+    fetchEventsFromSW()
+  }, [events])
 
   const nextItem = () => {
-    setSelectedIndex((prevIndex) => (prevIndex + 1) % events.length);
-  };
+    setSelectedIndex((prevIndex) => (prevIndex + 1) % events.length)
+  }
 
   const prevItem = () => {
     setSelectedIndex(
       (prevIndex) => (prevIndex - 1 + events.length) % events.length,
-    );
-  };
+    )
+  }
 
   const toggleViewType = () => {
     setViewType((prevType) =>
       prevType === 'individual' ? 'table' : 'individual',
-    );
-  };
+    )
+  }
 
   const renderIndividualView = useCallback(
     () => (
@@ -138,12 +136,12 @@ export const CapturedEventsList = () => {
       </>
     ),
     [events, selectedIndex],
-  );
+  )
 
   const renderTableView = () => {
     const allKeys = Array.from(
       new Set(events.flatMap((obj) => Object.keys(obj))),
-    );
+    )
     return (
       <table className="table">
         <thead>
@@ -167,8 +165,8 @@ export const CapturedEventsList = () => {
           ))}
         </tbody>
       </table>
-    );
-  };
+    )
+  }
 
   return (
     <>
@@ -214,5 +212,5 @@ export const CapturedEventsList = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}

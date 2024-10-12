@@ -1,23 +1,23 @@
-import { useEffect } from 'react';
+import { useEffect } from 'react'
 
-import './App.css';
-import logo from './assets/react-capture-events.svg';
-import { useCaptureEvent } from '../lib/context/CaptureEventProvider';
-import { CapturedEventsList } from '../lib/main';
+import './App.css'
+import logo from './assets/react-capture-events.svg'
+import { useCaptureEvent } from '../lib/context/CaptureEventProvider'
+import { CapturedEventsList } from '../lib/main'
 
 function App() {
-  const { addGlobalListeners } = useCaptureEvent();
+  const { addGlobalListeners } = useCaptureEvent()
 
   useEffect(() => {
     const removeListeners = addGlobalListeners(
       ['click'],
       ['component', 'event', 'action'],
-    );
+    )
 
     return () => {
-      removeListeners();
-    };
-  }, [removeEventListener]);
+      removeListeners()
+    }
+  }, [removeEventListener])
 
   return (
     <>
@@ -170,7 +170,7 @@ function App() {
       </div>
       <CapturedEventsList />
     </>
-  );
+  )
 }
 
-export default App;
+export default App

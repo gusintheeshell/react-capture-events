@@ -1,4 +1,4 @@
-import { createContext, useContext, useCallback, ReactNode, FC } from 'react';
+import { createContext, useContext, useCallback, ReactNode, FC } from 'react'
 
 /**
  * @typedef {Object} EventContextType
@@ -14,22 +14,22 @@ import { createContext, useContext, useCallback, ReactNode, FC } from 'react';
  *   @returns {function} - A function to remove the added listeners.
  */
 export type EventContextType<E = string, D = Record<string, any>> = {
-  handleUserAction: (eventName: E, eventData: D) => void;
-  handleResponseAction: (eventName: E, eventData: D, error?: boolean) => void;
+  handleUserAction: (eventName: E, eventData: D) => void
+  handleResponseAction: (eventName: E, eventData: D, error?: boolean) => void
   addGlobalListeners: (
     eventTypes: string[],
     dataAttributes: string[],
     selector?: string,
-  ) => () => void;
-};
+  ) => () => void
+}
 
 export type EventProviderProps = {
-  children: ReactNode;
-};
+  children: ReactNode
+}
 
 const EventContext = createContext<EventContextType<any, any> | undefined>(
   undefined,
-);
+)
 
 /**
  * EventProvider component that provides event handling capabilities to its children.
@@ -71,11 +71,11 @@ export const EventProvider: FC<EventProviderProps> = ({
           type: 'LOG_EVENT',
           eventName,
           eventData,
-        });
+        })
       }
     },
     [],
-  );
+  )
 
   /**
    * Handles user actions by sending events with the specified name and data.
@@ -90,10 +90,10 @@ export const EventProvider: FC<EventProviderProps> = ({
       eventName: E,
       eventData: D,
     ) => {
-      sendEvent(eventName, eventData);
+      sendEvent(eventName, eventData)
     },
     [sendEvent],
-  );
+  )
 
   /**
    * Handles the response action by sending an event with the provided event name and data.
@@ -110,10 +110,10 @@ export const EventProvider: FC<EventProviderProps> = ({
    */
   const handleResponseAction = useCallback(
     (eventName: string, eventData: Record<string, any>, error = false) => {
-      sendEvent(eventName, { ...eventData, error });
+      sendEvent(eventName, { ...eventData, error })
     },
     [sendEvent],
-  );
+  )
 
   /**
    * Adds global event listeners to the document for specified event types.
@@ -139,34 +139,34 @@ export const EventProvider: FC<EventProviderProps> = ({
       selector = '[data-event]',
     ) => {
       const globalListener = (event: Event) => {
-        const target = (event.target as HTMLElement).closest(selector);
+        const target = (event.target as HTMLElement).closest(selector)
         if (target) {
-          const eventData: Record<string, any> = {};
+          const eventData: Record<string, any> = {}
           dataAttributes.forEach((attr) => {
-            const value = target.getAttribute(`data-${attr}`);
+            const value = target.getAttribute(`data-${attr}`)
             if (value) {
-              eventData[attr] = value;
+              eventData[attr] = value
             }
-          });
+          })
 
-          const eventName = target.getAttribute('data-event') || '';
+          const eventName = target.getAttribute('data-event') || ''
 
-          handleUserAction(eventName, eventData);
+          handleUserAction(eventName, eventData)
         }
-      };
+      }
 
       eventTypes.forEach((eventType) => {
-        document.addEventListener(eventType, globalListener);
-      });
+        document.addEventListener(eventType, globalListener)
+      })
 
       return () => {
         eventTypes.forEach((eventType) => {
-          document.removeEventListener(eventType, globalListener);
-        });
-      };
+          document.removeEventListener(eventType, globalListener)
+        })
+      }
     },
     [handleUserAction],
-  );
+  )
 
   return (
     <EventContext.Provider
@@ -174,8 +174,8 @@ export const EventProvider: FC<EventProviderProps> = ({
     >
       {children}
     </EventContext.Provider>
-  );
-};
+  )
+}
 
 /**
  * Custom hook to access the event context.
@@ -194,9 +194,9 @@ export const useCaptureEvent = <
   E = string,
   D = Record<string, any>,
 >(): EventContextType<E, D> => {
-  const context = useContext(EventContext);
+  const context = useContext(EventContext)
   if (!context) {
-    throw new Error('useCaptureEvent must be used within an EventProvider');
+    throw new Error('useCaptureEvent must be used within an EventProvider')
   }
-  return context as EventContextType<E, D>;
-};
+  return context as EventContextType<E, D>
+}

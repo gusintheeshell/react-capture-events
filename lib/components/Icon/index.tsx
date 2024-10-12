@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const Icon: React.FC = () => (
   <svg
@@ -53,6 +53,6 @@ const Icon: React.FC = () => (
     />
     <circle cx="100" cy="100" r="10" fill="#FF4154" />
   </svg>
-);
+)
 
-export default Icon;
+export default Icon

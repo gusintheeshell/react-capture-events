@@ -1,6 +1,6 @@
 export type RegisterServiceWorkerOptions = {
-  scope?: string;
-};
+  scope?: string
+}
 
 export const registerServiceWorker = async (
   options?: RegisterServiceWorkerOptions,
@@ -9,26 +9,26 @@ export const registerServiceWorker = async (
     try {
       const registration = await navigator.serviceWorker.register('/sw.js', {
         scope: options?.scope || '/',
-      });
+      })
 
       const logServiceWorkerStatus = (status: string) => {
-        console.info(`Service worker: ${status}`);
-      };
+        console.info(`Service worker: ${status}`)
+      }
 
       if (registration.installing) {
-        logServiceWorkerStatus('installing');
+        logServiceWorkerStatus('installing')
       } else if (registration.waiting) {
-        logServiceWorkerStatus('installed');
+        logServiceWorkerStatus('installed')
       } else if (registration.active) {
-        logServiceWorkerStatus('active');
+        logServiceWorkerStatus('active')
       }
 
       // Optional: Check for updates
       if (registration && registration.waiting) {
-        registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        registration.waiting.postMessage({ type: 'SKIP_WAITING' })
       }
     } catch (error) {
-      console.error(`Service worker registration failed with error: ${error}`);
+      console.error(`Service worker registration failed with error: ${error}`)
     }
   }
-};
+}
