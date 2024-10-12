@@ -1,10 +1,11 @@
-<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="react-capture-events-icon">
+<svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" class="react-capture-events-icon">
   <style>
+
     /* Animação do círculo externo */
-    .outer-circle {
-      animation: rotate 10s linear infinite;
+    <!-- .outer-circle {
+      animation: rotate 20s linear infinite;
       transform-origin: center;
-    }
+    } -->
 
     @keyframes rotate {
       from {
@@ -17,7 +18,7 @@
 
     /* Animação do átomo do React */
     .react-atom {
-      animation: pulse 2s ease-in-out infinite;
+      animation: pulse 4s ease-in-out infinite;
     }
 
     @keyframes pulse {
@@ -25,16 +26,22 @@
         transform: translate(100px, 100px) scale(1);
       }
       50% {
-        transform: translate(100px, 100px) scale(1.05);
+        transform: translate(100px, 100px) scale(1.02);
       }
     }
 
     /* Animação do alvo central */
     .target-outer, .target-inner {
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
     }
 
+    .react-capture-events-icon:hover .target-outer {
+      r: 35;
+    }
 
+    .react-capture-events-icon:hover .target-inner {
+      r: 15;
+    }
   </style>
 
   <!-- Círculo externo (representando o evento) -->
