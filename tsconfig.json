@@ -12,6 +12,8 @@
     }
   ],
   "compilerOptions": {
-    "types": ["@vitest/browser/providers/playwright"]
-  }
+    "types": ["vitest/globals"],
+    "noEmit": false
+  },
+  "include": ["./tests/setupTest.ts"]
 }
