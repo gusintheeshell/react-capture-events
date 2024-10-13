@@ -2,6 +2,7 @@
   "name": "react-capture-events",
   "version": "0.0.0",
   "description": "A React library to capture and display events",
+  "author": "Gus",
   "private": false,
   "license": "MIT",
   "main": "dist/main.js",
@@ -22,8 +23,7 @@
     "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "prettier --write .",
-    "test:browser": "vitest --workspace=vitest.workspace.ts"
+    "format": "prettier --write ."
   },
   "lint-staged": {
     "**/*.{js,ts,tsx}": [
@@ -41,13 +41,14 @@
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
     "@eslint/js": "^9.12.0",
-    "@playwright/experimental-ct-react": "^1.48.0",
-    "@playwright/test": "^1.48.0",
     "@rollup/plugin-inject": "^5.0.5",
-    "@types/jest": "^29.5.13",
+    "@testing-library/jest-dom": "^6.5.0",
+    "@testing-library/react": "^16.0.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^22.7.5",
     "@types/react": "^18.3.10",
     "@types/react-dom": "^18.3.0",
+    "@types/testing-library__react": "^10.2.0",
     "@vitejs/plugin-react": "^4.3.2",
     "@vitest/browser": "^2.1.2",
     "eslint": "^9.12.0",
@@ -59,7 +60,6 @@
     "husky": "^9.1.6",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
-    "playwright": "^1.48.0",
     "prettier": "^3.3.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -68,8 +68,7 @@
     "vite": "^5.4.8",
     "vite-plugin-dts": "^4.2.4",
     "vite-plugin-lib-inject-css": "^2.1.1",
-    "vitest": "^2.1.2",
-    "vitest-browser-react": "^0.0.1"
+    "vitest": "^2.1.2"
   },
   "peerDependencies": {
     "react": "^17.0.0 || ^18.3.1",
