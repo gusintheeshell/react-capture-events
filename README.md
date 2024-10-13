@@ -8,6 +8,19 @@
 
 A React library to capture and display events in a user-friendly interface. This library provides components to log, view, and manage events in your React application.
 
+- [🚀 Features](#-features)
+- [📦 Installation](#-installation)
+- [⚙️ Compatibility](#️-compatibility)
+- [🛠 Usage](#-usage)
+  - [Basic Setup](#basic-setup)
+- [📝 Capturing Events](#-capturing-events)
+- [📊 Possible Use Cases](#-possible-use-cases)
+- [🗑 Clearing Events](#-clearing-events)
+- [📚 Examples](#-examples)
+  - [Basic Example](#basic-example)
+  - [Advanced Example](#advanced-example)
+- [📄 License](#-license)
+
 ## 🚀 Features
 
 - Capture and display events in real-time
@@ -28,6 +41,13 @@ or yarn:
 ```bash
 yarn add react-capture-events
 ```
+
+## ⚙️ Compatibility
+
+The react-capture-events library is compatible with the following versions of React:
+
+- React 17.x
+- React 18.x
 
 ## 🛠 Usage
 
