@@ -7,8 +7,6 @@ import { glob } from 'glob'
 import react from '@vitejs/plugin-react'
 import dts from 'vite-plugin-dts'
 import { libInjectCss } from 'vite-plugin-lib-inject-css'
-import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill'
-import { NodeModulesPolyfillPlugin } from '@esbuild-plugins/node-modules-polyfill'
 import path from 'path'
 
 export default defineConfig({
@@ -24,20 +22,6 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./tests/setupTest.ts'],
     css: true,
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      plugins: [
-        NodeGlobalsPolyfillPlugin({
-          process: true,
-          buffer: true,
-        }),
-        NodeModulesPolyfillPlugin(),
-      ],
-      loader: {
-        '.node': 'file',
-      },
-    },
   },
   resolve: {
     alias: {
