@@ -14,8 +14,8 @@ A React library to capture and display events in a user-friendly interface. This
 - [🛠 Usage](#-usage)
   - [Basic Setup](#basic-setup)
 - [📝 Capturing Events](#-capturing-events)
-- [📊 Possible Use Cases](#-possible-use-cases)
 - [🗑 Clearing Events](#-clearing-events)
+- [📊 Possible Use Cases](#-possible-use-cases)
 - [📚 Examples](#-examples)
   - [Basic Example](#basic-example)
   - [Advanced Example](#advanced-example)
@@ -111,6 +111,16 @@ navigator.serviceWorker.controller.postMessage({
 })
 ```
 
+## 🗑 Clearing Events
+
+To clear all captured events, send a `CLEAR_EVENTS` message to the service worker:
+
+```javascript
+navigator.serviceWorker.controller.postMessage({
+  type: 'CLEAR_EVENTS',
+})
+```
+
 ## 📊 Possible Use Cases
 
 The React Capture Events library can be applied in various scenarios where capturing, visualizing, and managing events is required. The implementation of these use cases should be done in conjunction with appropriate tools and workflows to handle specific requirements, such as logging, analysis, or integration with other systems. Below are some potential use cases:
@@ -135,16 +145,6 @@ The React Capture Events library can be applied in various scenarios where captu
 
 7. **Educational Applications**
    Track user progress and interactions on educational platforms to provide personalized learning experiences and feedback to learners.
-
-## 🗑 Clearing Events
-
-To clear all captured events, send a `CLEAR_EVENTS` message to the service worker:
-
-```javascript
-navigator.serviceWorker.controller.postMessage({
-  type: 'CLEAR_EVENTS',
-})
-```
 
 ## 📚 Examples
 
