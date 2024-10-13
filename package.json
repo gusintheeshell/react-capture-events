@@ -17,6 +17,27 @@
       "default": "./dist/main.js"
     }
   },
+  "keywords": [
+    "react",
+    "events",
+    "capture-events",
+    "event-logging",
+    "react-library",
+    "debugging",
+    "user-interaction",
+    "event-monitoring",
+    "frontend",
+    "event-tracking",
+    "react-hooks",
+    "service-worker",
+    "real-time-events",
+    "event-listener",
+    "event-management",
+    "UI-components",
+    "performance-analysis",
+    "event-auditing",
+    "testing"
+  ],
   "scripts": {
     "dev": "vite",
     "test": "vitest",
