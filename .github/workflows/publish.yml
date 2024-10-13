@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Update husky
-        run: npm update husky --legacy-peer-deps
-
       - name: Build the package
         run: npm run build
 
@@ -37,9 +34,6 @@ jobs:
         uses: mikepenz/release-changelog-builder-action@v2
         with:
           configuration: .github/release-changelog-config.json
-          ignorePreReleases: false
-          failOnError: false
-          commitMode: false
         env:
           NPM_CONFIG_USERCONFIG: /home/runner/work/_temp/.npmrc
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
