@@ -115,18 +115,26 @@ export const CapturedEventsList = () => {
   const renderIndividualView = useCallback(
     () => (
       <>
-        <div className="control-panel">
-          <button className="icon-button" onClick={prevItem}>
+        <div className="control-panel" data-testid="individual-view">
+          <button
+            className="icon-button"
+            onClick={prevItem}
+            data-testid="prev-button"
+          >
             <ChevronLeft size={16} />
           </button>
           {events.length > 0 ? (
-            <span>
+            <span data-testid="event-counter">
               Item {selectedIndex + 1} of {events.length}
             </span>
           ) : (
-            <span>No events yet</span>
+            <span data-testid="no-events">No events yet</span>
           )}
-          <button className="icon-button" onClick={nextItem}>
+          <button
+            className="icon-button"
+            onClick={nextItem}
+            data-testid="next-button"
+          >
             <ChevronRight size={16} />
           </button>
         </div>
@@ -143,7 +151,7 @@ export const CapturedEventsList = () => {
       new Set(events.flatMap((obj) => Object.keys(obj))),
     )
     return (
-      <table className="table">
+      <table className="table" data-testid="table-view">
         <thead>
           <tr>
             {allKeys.map((key) => (
@@ -170,12 +178,17 @@ export const CapturedEventsList = () => {
 
   return (
     <>
-      <button className="toggle-button" onClick={toggleWindow}>
+      <button
+        data-testid="toggle-button"
+        className="toggle-button"
+        onClick={toggleWindow}
+      >
         {isOpen ? <X size={24} /> : <Icon />}
       </button>
 
       {isOpen && (
         <div
+          data-testid="debug-window"
           className="debug-window"
           style={{
             bottom: `calc(20px + ${position.y}px)`,
@@ -183,28 +196,49 @@ export const CapturedEventsList = () => {
             cursor: isDragging ? 'grabbing' : 'auto',
           }}
         >
-          <div className="debug-header" ref={dragRef} onMouseDown={onMouseDown}>
+          <div
+            className="debug-header"
+            ref={dragRef}
+            onMouseDown={onMouseDown}
+            data-testid="debug-header"
+          >
             <span className="header-title">React Capture Events</span>
             <div className="header-actions">
-              <button className="icon-button" onClick={clearAllEvents}>
+              <button
+                className="icon-button"
+                onClick={clearAllEvents}
+                data-testid="clear-button"
+              >
                 <Trash size={16} />
               </button>
-              <button className="icon-button" onClick={refresh}>
+              <button
+                className="icon-button"
+                onClick={refresh}
+                data-testid="refresh-button"
+              >
                 <RefreshCcw size={16} />
               </button>
-              <button className="icon-button" onClick={toggleViewType}>
+              <button
+                className="icon-button"
+                onClick={toggleViewType}
+                data-testid="toggle-view-button"
+              >
                 {viewType === 'individual' ? (
                   <TableIcon size={16} />
                 ) : (
                   <List size={16} />
                 )}
               </button>
-              <button className="icon-button" onClick={toggleWindow}>
+              <button
+                className="icon-button"
+                onClick={toggleWindow}
+                data-testid="close-button"
+              >
                 <X size={16} />
               </button>
             </div>
           </div>
-          <div className="debug-content">
+          <div className="debug-content" data-testid="debug-content">
             {viewType === 'individual'
               ? renderIndividualView()
               : renderTableView()}
