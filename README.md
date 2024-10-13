@@ -1,6 +1,10 @@
 # React Capture Events
 
-<div align="center"> <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/react-capture-events-hPdo0AepAc4kCSiALhSoJOk17E138v.svg" alt="React Capture Events Logo" width="200" height="200"> </div>
+<div align="center">
+  <p align="center">
+    <img width="200" src="./src/assets/logo-animated.svg">
+  </p>
+</div>
 
 A React library to capture and display events in a user-friendly interface. This library provides components to log, view, and manage events in your React application.
 
