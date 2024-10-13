@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+/// <reference types="vite/client" />
 import { defineConfig } from 'vite'
 import { extname, relative, resolve } from 'path'
 import { fileURLToPath } from 'node:url'
@@ -17,6 +19,12 @@ export default defineConfig({
       tsconfigPath: resolve(__dirname, 'tsconfig.lib.json'),
     }),
   ],
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./tests/setupTest.ts'],
+    css: true,
+  },
   optimizeDeps: {
     esbuildOptions: {
       plugins: [
@@ -56,7 +64,7 @@ export default defineConfig({
       input: Object.fromEntries(
         glob
           .sync('lib/**/*.{ts,tsx}', {
-            ignore: ['lib/**/*.d.ts'],
+            ignore: ['lib/**/*.d.ts', 'lib/**/*.{test,spec}.{ts,tsx}'],
           })
           .map((file) => [
             relative('lib', file.slice(0, file.length - extname(file).length)),
