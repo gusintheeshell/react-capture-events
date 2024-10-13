@@ -13,6 +13,8 @@ A React library to capture and display events in a user-friendly interface. This
 - [⚙️ Compatibility](#️-compatibility)
 - [🛠 Usage](#-usage)
   - [Basic Setup](#basic-setup)
+  - [Setting Up the Service Worker](#setting-up-the-service-worker)
+  - [Where to Place the File](#where-to-place-the-file)
 - [📝 Capturing Events](#-capturing-events)
 - [🗑 Clearing Events](#-clearing-events)
 - [📊 Possible Use Cases](#-possible-use-cases)
@@ -98,6 +100,52 @@ The react-capture-events library is compatible with the following versions of Re
 
    export default App
    ```
+
+### Setting Up the Service Worker
+
+To ensure event capturing works correctly, you need to set up the service worker. Create a file named `sw.js` and add the following code:
+
+```javascript
+let events = []
+
+self.addEventListener('install', (event) => {
+  console.log('Service Worker installed')
+  event.waitUntil(self.skipWaiting())
+})
+
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker activated')
+  event.waitUntil(self.clients.claim())
+})
+
+self.addEventListener('message', (event) => {
+  if (event.data.type === 'LOG_EVENT') {
+    const newEvent = {
+      eventName: event.data.eventName,
+      eventData: event.data.eventData,
+      timestamp: new Date().toISOString(),
+    }
+    events.push(newEvent)
+
+    if (events.length > 100) {
+      events.shift()
+    }
+  }
+
+  if (event.data.type === 'GET_EVENTS') {
+    event.source.postMessage({ type: 'EVENTS_LIST', events })
+  }
+
+  if (event.data.type === 'CLEAR_EVENTS') {
+    events = []
+    event.source.postMessage({ type: 'EVENTS_CLEARED' })
+  }
+})
+```
+
+#### Where to Place the File
+
+Place the `sw.js` file at the root of your project. Make sure to register it correctly using the code shown in the Basic Setup section to ensure the service worker is active and ready to capture events.
 
 ## 📝 Capturing Events
 
