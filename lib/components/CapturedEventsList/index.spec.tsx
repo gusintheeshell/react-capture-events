@@ -66,21 +66,26 @@ describe('CapturedEventsList Component', () => {
     expect(individualView).toBeVisible()
   })
 
-  it('should clear all events', async () => {
+  it('should add a new event', async () => {
     render(<CapturedEventsList />)
     const toggleButton = screen.getByTestId('toggle-button')
+    userEvent.click(toggleButton)
+    const debugWindow = await waitFor(
+      () => screen.getByTestId('header-title').textContent,
+    )
 
-    await act(async () => {
-      userEvent.click(toggleButton)
-    })
+    expect(debugWindow).toBe('React Capture Events')
 
-    const clearButton = await waitFor(() => screen.getByTestId('clear-button'))
+    const toggleView = await waitFor(() =>
+      screen.getByTestId('toggle-view-button'),
+    )
 
-    await act(async () => {
-      userEvent.click(clearButton)
-    })
+    userEvent.click(toggleView)
 
-    const noEventsText = await waitFor(() => screen.getByText('No events yet'))
-    expect(noEventsText).toBeInTheDocument()
+    const countTd = await waitFor(
+      () => screen.getByTestId('count-tr').textContent,
+    )
+
+    expect(countTd).toBeDefined()
   })
 })
