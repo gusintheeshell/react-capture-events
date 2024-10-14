@@ -37,10 +37,22 @@ export const CapturedEventsList = () => {
   const [events, setEvents] = useState<EventData[]>([])
   const dragRef = useRef<HTMLDivElement>(null)
 
+  const addEvent = () => {
+    const event = {
+      eventName: 'click',
+      eventData: {
+        target: 'button',
+      },
+      timestamp: new Date().toISOString(),
+    }
+    setEvents((prevEvents) => [...prevEvents, event])
+  }
+
   const resetPosition = () => setPosition({ x: 0, y: 0 })
   const toggleWindow = () => {
     setIsOpen((prev) => !prev)
     resetPosition()
+    addEvent()
   }
 
   const onMouseDown = (e: React.MouseEvent) => {
@@ -81,9 +93,19 @@ export const CapturedEventsList = () => {
   const clearAllEvents = useCallback(async () => {
     if (navigator.serviceWorker && navigator.serviceWorker.controller) {
       navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_EVENTS' })
-      setEvents([])
+      navigator.serviceWorker.controller.postMessage({ type: 'CLEAR_EVENTS' })
+      // Listen for the response from the service worker
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data && event.data.type === 'EVENTS_CLEARED') {
+          setEvents([])
+
+          navigator.serviceWorker.removeEventListener('message', handleMessage)
+        }
+      }
+
+      navigator.serviceWorker.addEventListener('message', handleMessage)
     }
-  }, [events, setEvents])
+  }, [setEvents])
 
   useEffect(() => {
     document.addEventListener('mousemove', handleMouseMove)
@@ -163,9 +185,9 @@ export const CapturedEventsList = () => {
         </thead>
         <tbody>
           {events.map((item, index) => (
-            <tr key={index}>
+            <tr key={index} data-testid="count-tr">
               {allKeys.map((key) => (
-                <td key={`${index}-${key}`}>
+                <td key={`${index}-${key}`} data-testid="count-td">
                   {typeof item[key as keyof EventData] === 'object'
                     ? JSON.stringify(item[key as keyof EventData])
                     : String(item[key as keyof EventData] || '')}
@@ -234,6 +256,9 @@ export const CapturedEventsList = () => {
                 className="icon-button"
                 onClick={toggleViewType}
                 data-testid="toggle-view-button"
+                data-event="click"
+                data-action="toggle-view"
+                data-component="button"
               >
                 {viewType === 'individual' ? (
                   <TableIcon size={16} />
