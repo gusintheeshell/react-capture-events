@@ -18,6 +18,8 @@ import {
 import './styles.css'
 import Icon from '../Icon'
 
+import logo from '../../../src/assets/react-capture-events.svg'
+
 const ReactJson = lazy(() => import('react-json-view'))
 
 interface EventData {
@@ -179,11 +181,18 @@ export const CapturedEventsList = () => {
   return (
     <>
       <button
+        data-event="click"
+        data-action="toggle-debug-window"
+        data-component="button"
         data-testid="toggle-button"
         className="toggle-button"
         onClick={toggleWindow}
       >
-        {isOpen ? <X size={24} /> : <Icon />}
+        {isOpen ? (
+          <X size={24} />
+        ) : (
+          <Icon src={logo} alt="Logo" width={48} height={48} />
+        )}
       </button>
 
       {isOpen && (
@@ -202,7 +211,10 @@ export const CapturedEventsList = () => {
             onMouseDown={onMouseDown}
             data-testid="debug-header"
           >
-            <span className="header-title">React Capture Events</span>
+            <span className="header-title" data-testid="header-title">
+              React Capture Events
+            </span>
+            {/* <div data-testid="event-counter">{events.length}</div> */}
             <div className="header-actions">
               <button
                 className="icon-button"
