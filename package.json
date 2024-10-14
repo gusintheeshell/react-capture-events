@@ -42,6 +42,7 @@
     "dev": "vite",
     "test": "vitest",
     "test:no-watch": "vitest --watch=false --bail=0",
+    "coverage": "vitest --coverage",
     "build": "tsc -b ./tsconfig.lib.json && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
