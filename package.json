@@ -3,6 +3,10 @@
   "version": "0.3.1",
   "description": "A React library to capture and display events",
   "author": "Gus",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gusintheeshell/react-capture-events"
+  },
   "private": false,
   "license": "MIT",
   "main": "dist/main.js",
