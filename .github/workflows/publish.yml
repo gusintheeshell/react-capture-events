@@ -32,22 +32,13 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - id: changelog
-        name: Generate changelog
-        uses: mikepenz/release-changelog-builder-action@v2
-        with:
-          configuration: .github/release-changelog-config.json
-        env:
-          NPM_CONFIG_USERCONFIG: /home/runner/work/_temp/.npmrc
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
+      - name: Build Changelog
+        id: github_release
+        uses: mikepenz/release-changelog-builder-action@v5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: mikepenz/action-gh-release@v0.2.0-a03 #softprops/action-gh-release
         with:
-          tag_name: ${{ github.sha }}
-          release_name: Release ${{ github.sha }}
-          body: ${{ steps.changelog.outputs.changelog }}
-          draft: false
-          prerelease: false
+          body: ${{steps.github_release.outputs.changelog}}
