@@ -20,7 +20,7 @@ import Icon from '../Icon'
 
 import logo from '../../../src/assets/react-capture-events.svg'
 
-const ReactJson = lazy(() => import('react-json-view'))
+const ReactJson = lazy(async () => await import('react-json-view'))
 
 interface EventData {
   eventName: string
