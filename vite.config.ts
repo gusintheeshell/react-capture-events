@@ -22,11 +22,22 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./tests/setupTest.ts'],
     css: true,
+    coverage: {
+      exclude: [
+        'tests',
+        'node_modules',
+        'public',
+        './**/*.js',
+        './**/*.{tsconfig,config}.{ts,js}',
+        'lib/**/*.d.ts',
+        'lib/main.ts',
+        'src/**',
+      ],
+    },
   },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      lib: path.resolve(__dirname, './lib'),
       util: 'rollup-plugin-node-polyfills/polyfills/util',
     },
   },
@@ -37,18 +48,20 @@ export default defineConfig({
       formats: ['es'],
     },
     rollupOptions: {
-      external: [
-        'react',
-        'react/jsx-runtime',
-        'react-dom',
-        'chromium-bidi/lib/cjs/bidiMapper/BidiMapper',
-        'chromium-bidi/lib/cjs/cdp/CdpConnection',
-        './fsevents.node',
-      ],
+      external: ['react', 'react/jsx-runtime', 'react-dom'],
       input: Object.fromEntries(
         glob
           .sync('lib/**/*.{ts,tsx}', {
-            ignore: ['lib/**/*.d.ts', 'lib/**/*.{test,spec}.{ts,tsx}'],
+            ignore: [
+              'lib/**/*.d.ts',
+              'lib/**/*.{test,spec}.{ts,tsx}',
+              'src/**/*.d.ts',
+              'tests/**/*.ts',
+              './**/*.{tsconfig,config}.{ts,js}',
+              './**/*.js', // Exclude all .js files
+              './vite.config.ts',
+              './**/*.ts',
+            ],
           })
           .map((file) => [
             relative('lib', file.slice(0, file.length - extname(file).length)),
